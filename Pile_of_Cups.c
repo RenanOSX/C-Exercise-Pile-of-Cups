@@ -25,50 +25,50 @@ int num_filas; // Conta quantas filas tem
 int conta_copos;
 
 pilha* cria_pilha() {
-    pilha *pi = (pilha*)malloc(sizeof(pilha)); //Aloca memoria pra pilha
+    pilha *pi = (pilha*)malloc(sizeof(pilha));
 
     if(pi != NULL) {
-        pi->topo = NULL; //Se a pilha acabou de ser criada ela é vazia e logo seu topo também
+        pi->topo = NULL;
     }
     return pi;
 }
 
 void insere_pilha(pilha *pi, fila *fi) {
-    node_pilha *novo = (node_pilha*)malloc(sizeof(node_pilha)); //Aloca um node pra pilha
-    novo->next = NULL; //Proximo do novo node como vazio
-    novo->fila = fi; //Aponta o node da pilha pra fila
+    node_pilha *novo = (node_pilha*)malloc(sizeof(node_pilha));
+    novo->next = NULL;
+    novo->fila = fi;
     if(pi->topo == NULL) {
-        pi->topo = novo; //Ponteiro do topo aponta para o novo
+        pi->topo = novo;
     } else {
-        novo->next = pi->topo; //O próximo do novo aponta pro antigo topo
-        pi->topo = novo; //Topo antigo aponta pro novo
+        novo->next = pi->topo;
+        pi->topo = novo;
     }
 }
 
 void mostra_pilha(pilha *pi, int copos) {
-    node_fila *aux_fila; //Ponteiro auxiliar que aponta pra fila
-    node_pilha *aux_pilha; //Ponteiro auxiliar que sempre aponta pro topo da pilha;
-    int spaces = (ceil((-1+sqrt(1+8*copos))/2)) - 1; //Define a quantia de espaços com base na altura da pilha
+    node_fila *aux_fila; 
+    node_pilha *aux_pilha;
+    int spaces = (ceil((-1+sqrt(1+8*copos))/2)) - 1;
     if(pi->topo == NULL) {
         printf("Pilha VAZIA");
     } else {
         aux_pilha = pi->topo;
-        while(aux_pilha != NULL){ //Enquanto o topo tiver coisas dentro
+        while(aux_pilha != NULL){ 
             aux_fila = aux_pilha->fila->inicio;
             for(int i = 0; i<spaces; i++) {
                 printf(" ");
             }
-            while(aux_fila != NULL) { //Enquanto o inicio da fila NÃO for vazio
-                printf("%c ", aux_fila->letra); //Mostra a letra daquela fila
-                aux_fila = aux_fila->next; // Vai pro proximo nó da fila
-                conta_copos++; //Cada letra printada = +1 copo no contador
+            while(aux_fila != NULL) { 
+                printf("%c ", aux_fila->letra); 
+                aux_fila = aux_fila->next;
+                conta_copos++; 
             }
             spaces--;
             num_filas++;
-            aux_pilha = aux_pilha->next; // Vai pro proximo elemento da pilha
+            aux_pilha = aux_pilha->next;
             printf("         Copos: %d", conta_copos);
             printf("\n");
-            conta_copos = 0; //Depois de printar a linha de copos ele 0 para contar a próxima linha
+            conta_copos = 0; 
         }
     }
 }
@@ -86,8 +86,8 @@ fila* cria_fila() {
 
 void insere_fila(fila *fi, char letra) {
     node_fila *novo = (node_fila*)malloc(sizeof(node_fila));
-    novo->letra = letra; //Adiciona a letra dentro do novo espaço alocado
-    novo->next = NULL; //Aponta o próximo do novo elemento para NULL
+    novo->letra = letra;
+    novo->next = NULL;
 
     if(fi->inicio == NULL) {
         //printf("Fila vazia");
@@ -115,12 +115,12 @@ void mostra_fila(fila *fi) {
 void mostra_copos(pilha *pi, int copos) {
     char letra = 'a';
     int copos_res;
-    copos_res = copos; // Quantia restante igual o total de copos
+    copos_res = copos;
     int formula_base = ceil((-1+sqrt(1+8*copos_res))/2);
 
-    for(int i = 0; i<formula_base; i++){ //Repete para cada LINHA DA PILHA
+    for(int i = 0; i<formula_base; i++){ 
         fila *fi = cria_fila();
-        for(int j = 0; j < ceil((-1+sqrt(1+8*copos_res))/2); j++) { //Adiciona letras de acordo com o andar pilha
+        for(int j = 0; j < ceil((-1+sqrt(1+8*copos_res))/2); j++) {
             insere_fila(fi, letra);
             letra += 1;
         }
@@ -134,7 +134,7 @@ void mostra_copos(pilha *pi, int copos) {
 
 void main() {
     int copos;
-    pilha *pi = cria_pilha(); //Inicializa Pilha
+    pilha *pi = cria_pilha();
 
     do {
         printf("Digite uma quantia de copos: ");
